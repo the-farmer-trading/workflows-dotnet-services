@@ -55,8 +55,8 @@ jobs:
     - name: DOCKER - Login
       uses: docker/login-action@v1
       with:
-        username: ${{ secrets.ARTIFACTORY_USERNAME }}
-        password: ${{ secrets.ARTIFACTORY_PASSWORD }}
+        username: ${{ secrets.username }}
+        password: ${{ secrets.password }}
         registry: ${{ inputs.registryHost }}
     
     - name: DOCKER - Setup QEMU
