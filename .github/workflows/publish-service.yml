@@ -3,6 +3,9 @@ name: publish-service
 on:
   workflow_call:
     inputs:
+      imageName:
+        required: true
+        type: string
       targetImageRepositoryName: 
         type: string  
         default: "core-docker-local"
