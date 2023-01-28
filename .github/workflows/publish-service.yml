@@ -31,6 +31,9 @@ jobs:
     runs-on: ubuntu-latest
     outputs: 
       semanticVersion: ${{ steps.get-semantic-version.outputs.group1 }}
+      majorVersion: ${{ steps.get-semantic-version-components.outputs.semanticVersion.majorVersion }}
+      minorVersion: ${{ steps.get-semantic-version-components.outputs.semanticVersion.minorVersion }}
+      patchVersion: ${{ steps.get-semantic-version-components.outputs.semanticVersion.patchVersion }}
     steps:
     - name: Check out the repo
       uses: actions/checkout@a81bbbf8298c0fa03ea29cdc473d45769f953675
@@ -41,12 +44,24 @@ jobs:
       with:
         path: ${{ inputs.directoryBuildPropsPath }}
         
-    - name: SEMVER - Determine.
+    - name: SEMVER - Determine
       id: get-semantic-version
       uses: actions-ecosystem/action-regex-match@v2
       with:
         text: ${{ steps.read-properties.outputs.content }}
         regex: '<Version>(.*?)</Version>'    
+
+    - name: SEMVER - Components
+      id: get-semantic-version-components
+      shell: pwsh
+      run: |
+        $semanticVersion = "${{ steps.get-semantic-version.outputs.group1 }}"
+        $majorVersion = $semanticVersion.Split('.')[0]
+        $minorVersion = $semanticVersion.Split('.')[1]
+        $patchVersion = $semanticVersion.Split('.')[2]
+        Write-Host "semanticVersion.majorVersion" >> $GITHUB_OUTPUT
+        Write-Host "semanticVersion.minorVersion" >> $GITHUB_OUTPUT
+        Write-Host "semanticVersion.patchVersion" >> $GITHUB_OUTPUT
   
   publish:
     runs-on: ubuntu-latest
@@ -78,6 +93,8 @@ jobs:
           artifactoryUsername=${{ secrets.username }}
           artifactoryPassword=${{ secrets.password }}
         tags: |
-          farmer.jfrog.io/${{ inputs.targetImageRepositoryName }}/${{ inputs.imageName }}:${{ needs.get-semver.outputs.semanticVersion }}
+          farmer.jfrog.io/${{ inputs.targetImageRepositoryName }}/${{ inputs.imageName }}:${{ needs.get-semver.outputs.majorVersion }}
+          farmer.jfrog.io/${{ inputs.targetImageRepositoryName }}/${{ inputs.imageName }}:${{ needs.get-semver.outputs.majorVersion }}.${{ needs.get-semver.outputs.minorVersion }}
+          farmer.jfrog.io/${{ inputs.targetImageRepositoryName }}/${{ inputs.imageName }}:${{ needs.get-semver.outputs.majorVersion }}.${{ needs.get-semver.outputs.minorVersion }}.${{ needs.get-semver.outputs.patchVersion }}
           farmer.jfrog.io/${{ inputs.targetImageRepositoryName }}/${{ inputs.imageName }}:latest
 
