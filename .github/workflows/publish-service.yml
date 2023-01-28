@@ -59,9 +59,9 @@ jobs:
         $majorVersion = $semanticVersion.Split('.')[0]
         $minorVersion = $semanticVersion.Split('.')[1]
         $patchVersion = $semanticVersion.Split('.')[2]
-        "$majorVersion" >> $env:GITHUB_OUTPUT
-        "$minorVersion" >> $env:GITHUB_OUTPUT
-        "$patchVersion" >> $env:GITHUB_OUTPUT
+        "majorVersion=$majorVersion" >> $env:GITHUB_OUTPUT
+        "minorVersion=$minorVersion" >> $env:GITHUB_OUTPUT
+        "patchVersion=$patchVersion" >> $env:GITHUB_OUTPUT
   
   publish:
     runs-on: ubuntu-latest
