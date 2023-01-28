@@ -31,9 +31,9 @@ jobs:
     runs-on: ubuntu-latest
     outputs: 
       semanticVersion: ${{ steps.get-semantic-version.outputs.group1 }}
-      majorVersion: ${{ steps.get-semantic-version-components.outputs.semanticVersion.majorVersion }}
-      minorVersion: ${{ steps.get-semantic-version-components.outputs.semanticVersion.minorVersion }}
-      patchVersion: ${{ steps.get-semantic-version-components.outputs.semanticVersion.patchVersion }}
+      majorVersion: ${{ steps.get-semantic-version-components.outputs.majorVersion }}
+      minorVersion: ${{ steps.get-semantic-version-components.outputs.minorVersion }}
+      patchVersion: ${{ steps.get-semantic-version-components.outputs.patchVersion }}
     steps:
     - name: Check out the repo
       uses: actions/checkout@a81bbbf8298c0fa03ea29cdc473d45769f953675
@@ -59,9 +59,9 @@ jobs:
         $majorVersion = $semanticVersion.Split('.')[0]
         $minorVersion = $semanticVersion.Split('.')[1]
         $patchVersion = $semanticVersion.Split('.')[2]
-        Write-Host "semanticVersion.majorVersion" >> $GITHUB_OUTPUT
-        Write-Host "semanticVersion.minorVersion" >> $GITHUB_OUTPUT
-        Write-Host "semanticVersion.patchVersion" >> $GITHUB_OUTPUT
+        "${majorVersion}" >> $env:GITHUB_OUTPUT
+        "${minorVersion}" >> $env:GITHUB_OUTPUT
+        "${patchVersion}" >> $env:GITHUB_OUTPUT
   
   publish:
     runs-on: ubuntu-latest
