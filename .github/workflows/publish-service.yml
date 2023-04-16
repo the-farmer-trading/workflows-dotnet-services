@@ -99,7 +99,7 @@ jobs:
         build-args: |
           nugetUsername=${{ secrets.nugetUsername }}
           nugetPassword=${{ secrets.nugetPassword }}
-          nugetRegistry:=${{ inputs.nugetRegistry }}
+          nugetRegistry=${{ inputs.nugetRegistry }}
         tags: |
           europe-west4-docker.pkg.dev/silvester-306016/silvester-docker/${{ inputs.imageName }}:${{ needs.get-semver.outputs.majorVersion }}
           europe-west4-docker.pkg.dev/silvester-306016/silvester-docker/${{ inputs.imageName }}:${{ needs.get-semver.outputs.majorVersion }}.${{ needs.get-semver.outputs.minorVersion }}
