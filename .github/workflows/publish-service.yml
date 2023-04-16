@@ -29,7 +29,7 @@ on:
         required: true        
       nugetUsername: 
         required: true
-      nugerPassword:
+      nugetPassword:
         required: true        
         
 jobs:
@@ -98,7 +98,7 @@ jobs:
         push: true 
         build-args: |
           nugetUsername=${{ secrets.nugetUsername }}
-          nugerPassword=${{ secrets.nugetPassword }}
+          nugetPassword=${{ secrets.nugetPassword }}
         tags: |
           europe-west4-docker.pkg.dev/silvester-306016/silvester-docker/${{ inputs.imageName }}:${{ needs.get-semver.outputs.majorVersion }}
           europe-west4-docker.pkg.dev/silvester-306016/silvester-docker/${{ inputs.imageName }}:${{ needs.get-semver.outputs.majorVersion }}.${{ needs.get-semver.outputs.minorVersion }}
