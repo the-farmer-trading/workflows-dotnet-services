@@ -12,19 +12,26 @@ on:
       directoryBuildPropsPath:
         required: true
         type: string
-      registryHost:
+      dockerRegistry:
         type: string
         default: "europe-west4-docker.pkg.dev"
       dockerFilePath:  
         type: string
         default: "./Dockerfile"
+      nugetRegistry: 
+        type: string
+        default: "https://nuget.pkg.github.com/the-farmer-trading/index.json"
         
     secrets:
-      username: 
+      dockerUsername: 
         required: true
-      password:
+      dockerPassword:
         required: true        
-
+      nugetUsername: 
+        required: true
+      nugerPassword:
+        required: true        
+        
 jobs:
 
   get-semver:
@@ -73,9 +80,9 @@ jobs:
     - name: DOCKER - Login
       uses: docker/login-action@v2
       with:
-        username: ${{ secrets.username }}
-        password: ${{ secrets.password }}
-        registry: ${{ inputs.registryHost }}
+        username: ${{ secrets.dockerUsername }}
+        password: ${{ secrets.dockerPassword }}
+        registry: ${{ inputs.dockerRegistry }}
     
     - name: DOCKER - Setup QEMU
       uses: docker/setup-qemu-action@v1
@@ -89,6 +96,9 @@ jobs:
         context: .
         file: ${{ inputs.dockerFilePath }}
         push: true 
+        build-args: |
+          nugetUsername=${{ secrets.nugetUsername }}
+          nugerPassword=${{ secrets.nugetPassword }}
         tags: |
           europe-west4-docker.pkg.dev/silvester-306016/silvester-docker/${{ inputs.imageName }}:${{ needs.get-semver.outputs.majorVersion }}
           europe-west4-docker.pkg.dev/silvester-306016/silvester-docker/${{ inputs.imageName }}:${{ needs.get-semver.outputs.majorVersion }}.${{ needs.get-semver.outputs.minorVersion }}
