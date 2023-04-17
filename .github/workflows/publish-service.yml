@@ -101,8 +101,8 @@ jobs:
           NUGET_PASSWORD=${{ secrets.nugetPassword }}
           NUGET_REGISTRY=${{ inputs.nugetRegistry }}
         tags: |
-          europe-west4-docker.pkg.dev/silvester-306016/silvester-docker/${{ inputs.imageName }}:${{ needs.get-semver.outputs.majorVersion }}
-          europe-west4-docker.pkg.dev/silvester-306016/silvester-docker/${{ inputs.imageName }}:${{ needs.get-semver.outputs.majorVersion }}.${{ needs.get-semver.outputs.minorVersion }}
-          europe-west4-docker.pkg.dev/silvester-306016/silvester-docker/${{ inputs.imageName }}:${{ needs.get-semver.outputs.majorVersion }}.${{ needs.get-semver.outputs.minorVersion }}.${{ needs.get-semver.outputs.patchVersion }}
-          europe-west4-docker.pkg.dev/silvester-306016/silvester-docker/${{ inputs.imageName }}:latest
+          europe-west4-docker.pkg.dev/silvester-306016/silvester-docker/the-farmer/images/${{ inputs.imageName }}:${{ needs.get-semver.outputs.majorVersion }}
+          europe-west4-docker.pkg.dev/silvester-306016/silvester-docker/the-farmer/images/${{ inputs.imageName }}:${{ needs.get-semver.outputs.majorVersion }}.${{ needs.get-semver.outputs.minorVersion }}
+          europe-west4-docker.pkg.dev/silvester-306016/silvester-docker/the-farmer/images/${{ inputs.imageName }}:${{ needs.get-semver.outputs.majorVersion }}.${{ needs.get-semver.outputs.minorVersion }}.${{ needs.get-semver.outputs.patchVersion }}
+          europe-west4-docker.pkg.dev/silvester-306016/silvester-docker/the-farmer/images/${{ inputs.imageName }}:latest
 
