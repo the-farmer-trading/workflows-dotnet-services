@@ -14,7 +14,7 @@ on:
         type: string
       dockerRegistry:
         type: string
-        default: "europe-west1-docker.pkg.dev/silvester-306016/the-farmer-docker"
+        default: "europe-west1-docker.pkg.dev/silvester-306016/the-farmer-docker/images"
       dockerFilePath:  
         type: string
         default: "./Dockerfile"
