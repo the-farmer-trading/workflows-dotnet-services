@@ -6,9 +6,6 @@ on:
       imageName:
         required: true
         type: string
-      targetImageRepositoryName: 
-        type: string  
-        default: "core-docker-local"
       directoryBuildPropsPath:
         required: true
         type: string
